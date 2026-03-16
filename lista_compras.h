@@ -17,6 +17,15 @@ typedef struct{
 
 }Dados;
 
+bool verificador(vector<string>& vetor, string elemento){
+    for (size_t i = 0; i < vetor.size(); i++){
+        if (vetor[i] == elemento){
+            return true;
+        }
+    }
+    return false;
+}
+
 Dados ListaCompras(string pathArquivo){ //função que recebe o caminho do arquivo e retorna um struct com os vetores e mapas
 
     Dados dados;
@@ -40,13 +49,13 @@ Dados ListaCompras(string pathArquivo){ //função que recebe o caminho do arqui
     while (fscanf(arquivo,"%*d,%8[^,],%*d,%49[^\n]\n", cliente, produto) == 2){ //o * no "%*d" serve pra ignorar a data de compra e o cod de produto, já que não vamos usar
 
         //usa função .count pra verificar se o cliente ou produto já foi adicionado
-        if (dados.mapClientes.count(cliente) == 0){
+        if (verificador(dados.codClientes, cliente) == false){
             dados.mapClientes[cliente] = dados.codClientes.size(); //a função .size vai retornar quantos elementos já tem no vetor para usar isso de índice
             dados.codClientes.push_back(cliente); //adiciona ao vetor.
         }
 
         //mesmo processo
-        if (dados.mapProdutos.count(produto) == 0){
+        if (verificador(dados.nomeProdutos, produto) == false){
             dados.mapProdutos[produto] = dados.nomeProdutos.size();
             dados.nomeProdutos.push_back(produto);
         }
@@ -61,8 +70,8 @@ Dados ListaCompras(string pathArquivo){ //função que recebe o caminho do arqui
 
     while (fscanf(arquivo,"%*d,%8[^,],%*d,%49[^\n]\n", cliente, produto) == 2){ //varre os arquivos pela segunda vez
 
-        int idcl = dados.mapClientes[cliente]; //retorna o id do mapa do cliente
-        int idpdrt = dados.mapProdutos[produto]; //retorna o id do mapa do produto
+        int idcl = dados.mapClientes[cliente]; //atribui o id do mapa do cliente
+        int idpdrt = dados.mapProdutos[produto]; //atribui o id do mapa do produto
 
         dados.comprasPorCliente[idcl].push_back(idpdrt); //cada produto é colocado no vetor doo cliente comprador
 

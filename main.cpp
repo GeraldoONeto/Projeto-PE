@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "dados_vendas.hpp"
+#include "lista_compras.h"
 
 using namespace std;
 
@@ -26,18 +26,28 @@ int main(){
 
             string codigo = cd; //passa para string do C++
 
-            int indice_cliente = dados.mapClientes[codigo]; 
+            if (verificador(dados.codClientes, codigo) == true){
 
-            printf("Produto(s) comprado(s) pelo cliente: \n\n");
+                int indice_cliente = dados.mapClientes[codigo]; 
 
-            for (size_t i = 0; i < dados.comprasPorCliente[indice_cliente].size(); i++){ //a função .size() retorna um valor de tipo size_t, então o i tem que ser declarado como size_t tbm. Ou senão pode colocar um (int) antes do dados.comprasPorCliente
-            //o for tem o tamanho do número de produtos comprado pelo cliente
+                printf("Produto(s) comprado(s) pelo cliente: \n\n");
 
-                int indice_produto = dados.comprasPorCliente[indice_cliente][i]; //recebe o indice de um produto por vez 
+                for (size_t i = 0; i < dados.comprasPorCliente[indice_cliente].size(); i++){ //a função .size() retorna um valor de tipo size_t, então o i tem que ser declarado como size_t tbm. Ou senão pode colocar um (int) antes do dados.comprasPorCliente
+                //o for tem o tamanho do número de produtos comprado pelo cliente
 
-                printf("%s\n", dados.nomeProdutos[indice_produto].c_str()); //printa o nome do produto acessado
+                    int indice_produto = dados.comprasPorCliente[indice_cliente][i]; //recebe o indice de um produto por vez 
+
+                    printf("%s\n", dados.nomeProdutos[indice_produto].c_str()); //printa o nome do produto acessado
+                    
+                }
                 
             }
+
+            else{
+                printf("Esse código não está listado\n");
+            }
+
+
         }
 
         
