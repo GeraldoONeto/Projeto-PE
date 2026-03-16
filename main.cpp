@@ -8,7 +8,7 @@ using namespace std;
 
 int main(){
 
-    string caminho = "/home/geraldo/Projeto - Programação Estruturada/dados_venda_cluster_0.csv";
+    string caminho = "coloque aqui o caminho do arquivo no seu computador";
 
     Dados dados = ListaCompras(caminho);
 
@@ -53,6 +53,8 @@ int main(){
         
 
     } while (opcao != 0);
+
+    printf("Programa encerrado!!\n");
 
     return 0;
 }
