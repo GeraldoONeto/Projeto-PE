@@ -3,10 +3,11 @@
 
 #include <vector>
 #include "dados_vendas.hpp"
+using namespace std;
 
-std::vector<std::vector<int>> criarMatrizDensa(const Dados& dados);
-std::vector<std::vector<int>> multiplicarMatrizes(const std::vector<std::vector<int>>& A);
-std::vector<std::vector<double>> calcularSimilaridade(const Dados& dados, const std::vector<std::vector<int>>& I);
-double obterSimilaridade(const Dados& dados, const std::vector<std::vector<double>>& S, int i, int j);
+vector<vector<int>> criarMatrizDensa(const Dados& dados);
+vector<vector<int>> multiplicarMatrizes(const vector<vector<int>>& A);
+vector<vector<double>> calcularSimilaridade(const Dados& dados, const vector<vector<int>>& I);
+double obterSimilaridade(const Dados& dados, const vector<vector<double>>& S, int i, int j);
 
 #endif
