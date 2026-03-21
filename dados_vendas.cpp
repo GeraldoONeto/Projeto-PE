@@ -20,7 +20,7 @@ Dados listaCompras(const char* pathArquivo) { //usar char e passar por ref
 
             dados.comprasPorCliente.push_back(vector<int>());
         }
-        if (dados.mapProdutos.find(produto) == dados.mapClientes.end()) {
+        if (dados.mapProdutos.find(produto) == dados.mapProdutos.end()) {
             dados.mapProdutos[produto] = dados.nomeProdutos.size();
             dados.nomeProdutos.push_back(produto);
         }
