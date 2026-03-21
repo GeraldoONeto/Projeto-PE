@@ -14,6 +14,6 @@ typedef struct {
     vector<vector<int>> comprasPorCliente;
 } Dados;
 
-Dados ListaCompras(string pathArquivo);
+Dados listaCompras(const char* pathArquivo);
 
 #endif

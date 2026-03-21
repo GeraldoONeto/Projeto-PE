@@ -8,7 +8,7 @@
 using namespace std;
 
 int main() {
-    Dados bd = ListaCompras("dados_venda_cluster_0.csv");
+    Dados bd = listaCompras("dados_venda_cluster_0.csv");
     if (bd.codClientes.empty()) {
         printf("Erro: nenhum cliente carregado.\n");
         return 1;
