@@ -18,11 +18,11 @@ int main() {
 
     vector<vector<int>> A = criarMatrizDensa(bd);
     
-    vector<vector<int>> I_padrao = multiplicarMatrizes(A);
-    vector<vector<double>> S_normal = calcularSimilaridade(bd, I_padrao);
+    vector<vector<int>> I = multiplicarMatrizes(A);
+    vector<vector<double>> S_normal = calcularSimilaridade(bd, I);
     
-    vector<vector<int>> I_eficiente = multiplicarEficiente(A);
-    vector<vector<double>> S_eficiente = calcularSimEfi(bd, I_eficiente);
+    vector<vector<int>> C = multiplicarEficiente(A);
+    vector<vector<double>> S_eficiente = calcularSimEfi(bd, C);
 
     int opcao;
     do {
