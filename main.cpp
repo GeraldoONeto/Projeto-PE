@@ -16,20 +16,15 @@ int main() {
         return 1;
     }
 
-    vector<vector<int>> A = criarMatrizDensa(bd);
-    
-    vector<vector<int>> I = multiplicarMatrizes(A);
-    vector<vector<double>> S_normal = calcularSimilaridade(bd, I);
-    
-    vector<vector<int>> C = multiplicarEficiente(A);
-    vector<vector<double>> S_eficiente = calcularSimEfi(bd, C);
+    vector<vector<double>> S_eficiente;
 
     int opcao;
     do {
         printf("\n--- MENU ---\n");
-        printf("1. Historico de compras (Atividade 1)\n");
-        printf("2. Similaridade entre dois clientes (Atividade 2)\n");
-        printf("3. Produtos recomendados (Atividade 3)\n");
+        printf("1. Historico de compras\n");
+        printf("2. Similaridade entre dois clientes\n");
+        printf("3. Produtos recomendados\n");
+         printf("4. Comparar algoritmos\n");
         printf("0. Sair\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
@@ -74,14 +69,25 @@ int main() {
             int id2 = bd.mapClientes[cod2];
             double sim;
             
+            
             clock_t inicio = clock();
             
             if (algoritmo == 1) {
                 printf("\nUsando algoritmo normal...\n");
+                
+                vector<vector<int>> A = criarMatrizDensa(bd);
+                vector<vector<int>> I = multiplicarMatrizes(A);
+                vector<vector<double>> S_normal = calcularSimilaridade(bd, I);
+    
                 sim = obterSimilaridade(bd, S_normal, id1, id2);
             } else {
                 printf("\nUsando algoritmo eficiente...\n");
-                sim = obterSimEfi(bd, S_eficiente, id1, id2);
+                
+                vector<vector<int>> A = criarMatrizDensa(bd);
+                vector<vector<int>> C = multiplicarEficiente(A);
+                vector<vector<double>> S_eficiente = calcularSimilaridade(bd, C);
+                
+                sim = obterSimilaridade(bd, S_eficiente, id1, id2);
             }
             
             clock_t fim = clock();
@@ -94,7 +100,7 @@ int main() {
             char cod1[9], cod2[9], cod3[9];
             int k;
             
-            printf("Usando algoritmo eficiente para recomendacoes...\n");
+
             printf("Digite o codigo do primeiro cliente: ");
             scanf("%8s", cod1);
             printf("Digite o codigo do segundo cliente: ");
@@ -112,6 +118,13 @@ int main() {
             int id1 = bd.mapClientes[cod1];
             int id2 = bd.mapClientes[cod2];
             int id3 = bd.mapClientes[cod3];
+
+            if (S_eficiente.empty()){
+                vector<vector<int>> A = criarMatrizDensa(bd);
+                vector<vector<int>> C = multiplicarEficiente(A);
+                S_eficiente = calcularSimilaridade(bd, C);
+
+            }
 
             vector<RankProduto> rankcl1 = recomendacao(id1, bd, S_eficiente, k);
             vector<RankProduto> rankcl2 = recomendacao(id2, bd, S_eficiente, k);
@@ -133,13 +146,59 @@ int main() {
                 printf("Produto recomendado n°%d: %s\n", i+1, bd.nomeProdutos[idp].c_str());
             }
         }
+
+        else if (opcao == 4) {
+            printf("\nComparacao de algoritmos");
+            printf("Clientes: %d | Produtos: %d\n\n", (int)bd.codClientes.size(), (int)bd.nomeProdutos.size());
+
+            printf("Algoritmo normal: ");
+            int aux = 0;
+
+
+            if (aux == 0){
+                clock_t ini1 = clock();
+
+                vector<vector<int>> A = criarMatrizDensa(bd);
+                vector<vector<int>> I_teste = multiplicarMatrizes(A);
+                vector<vector<double>> S_teste1 = calcularSimilaridade(bd, I_teste);
+                
+                clock_t fim1 = clock();
+                printf("%.4f segundos\n", double(fim1 - ini1) / CLOCKS_PER_SEC);
+            }
+
+            aux += 1;
+
+            if (aux == 1){
+                printf("Algoritmo eficiente: ");
+                clock_t ini2 = clock();
+                
+                vector<vector<int>> A = criarMatrizDensa(bd);
+                vector<vector<int>> C_teste = multiplicarEficiente(A);
+                vector<vector<double>> S_teste2 = calcularSimilaridade(bd, C_teste);
+                
+                clock_t fim2 = clock();
+                printf("%.4f segundos\n", double(fim2 - ini2) / CLOCKS_PER_SEC);
+            }
+        }
+
+
     } while (opcao != 0);
 
     return 0;
 }
 /*
+csv 0
 99CL9Y01
 9O6OSM01
 99EF7201
 56661201
+*/
+
+/*
+csv 2
+99DL9N01
+77602301
+22047601
+69222401
+99L6ZO01
 */

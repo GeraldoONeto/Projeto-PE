@@ -61,35 +61,14 @@ vector<vector<double>> calcularSimilaridade(const Dados& dados, const vector<vec
     for (int i = 0; i < n; i++) {
         double tam_i = (double)dados.comprasPorCliente[i].size();
         for (int j = 0; j < n; j++) {
-            if (tam_i > 0)
-                S[i][j] = 1.0 - (double)I[i][j] / tam_i;
-            else
-                S[i][j] = 1.0;
+
+            S[i][j] = 1.0 - (double)I[i][j] / tam_i;
+            
         }
     }
     return S;
 }
 
-vector<vector<double>> calcularSimEfi(const Dados& dados, const vector<vector<int>>& C) {
-    int n = dados.codClientes.size();
-    vector<vector<double>> SE(n, vector<double>(n, 0.0));
-
-    for (int i = 0; i < n; i++) {
-        double tam_i = (double)dados.comprasPorCliente[i].size();
-        for (int j = 0; j < n; j++) {
-            if (tam_i > 0)
-                SE[i][j] = 1.0 - (double)C[i][j] / tam_i;
-            else
-                SE[i][j] = 1.0;
-        }
-    }
-    return SE;
-}
-
 double obterSimilaridade(const Dados& dados, const vector<vector<double>>& S, int i, int j) {
     return S[i][j];
-}
-
-double obterSimEfi(const Dados& dados, const vector<vector<double>>& SE, int i, int j) {
-    return SE[i][j];
 }
