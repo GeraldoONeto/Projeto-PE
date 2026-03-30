@@ -11,6 +11,6 @@ typedef struct{
     double valor;
 } RankProduto;
 
-vector<RankProduto> recomendacao(int idcl, const Dados& dados, const vector<vector<double>>& S, int k);
+vector<int> recomendacao(int idcl,const vector<string>& codClientes, const vector<string>& nomeProdutos, const vector<vector<int>>& comprasPorCliente, const vector<vector<double>>& Vsim, int k);
 
 #endif

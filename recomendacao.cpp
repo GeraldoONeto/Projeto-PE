@@ -14,9 +14,15 @@ bool compararPorRank(const RankProduto& a, const RankProduto& b){
     }
 
 
-vector<RankProduto> recomendacao(int idcl, const Dados& dados, const vector<vector<double>>& Vsim, int k){
+vector<int> recomendacao(
+    int idcl,
+    const vector<string>& codClientes, 
+    const vector<string>& nomeProdutos, 
+    const vector<vector<int>>& comprasPorCliente, 
+    const vector<vector<double>>& Vsim, 
+    int k){
 
-int numclientes = dados.codClientes.size();
+int numclientes = codClientes.size();
 
 int* L = (int*)malloc(numclientes * sizeof(int));
 int tamL = 0;
@@ -28,7 +34,7 @@ for (int i = 0; i < numclientes; i++){
     }
 }
 
-int numProdutos = dados.nomeProdutos.size();
+int numProdutos = nomeProdutos.size();
 vector<RankProduto> R (numProdutos);
 
 for (int i = 0; i < numProdutos; i++){
@@ -39,13 +45,13 @@ for (int i = 0; i < numProdutos; i++){
 for (int i = 0; i < tamL; i++){
     int s = L[i];
     double sim = Vsim[idcl][s];
-    for(size_t j = 0; j < dados.comprasPorCliente[s].size(); j++){
-        int id_p = dados.comprasPorCliente[s][j];
+    for(size_t j = 0; j < comprasPorCliente[s].size(); j++){
+        int id_p = comprasPorCliente[s][j];
 
         bool existeEmC = false;
 
-        for(int x = 0; x < dados.comprasPorCliente[idcl].size(); x++){
-            if(dados.comprasPorCliente[idcl][x] == id_p){
+        for(size_t x = 0; x < comprasPorCliente[idcl].size(); x++){
+            if(comprasPorCliente[idcl][x] == id_p){
                 existeEmC = true;
                 break;
             }
@@ -58,10 +64,10 @@ for (int i = 0; i < tamL; i++){
 }    
 sort(R.begin(), R.end(), compararPorRank);
 
-vector<RankProduto> prodRecomendados;
+vector<int> prodRecomendados;
 
 for (int i = 0; i < k; i++){
-    prodRecomendados.push_back(R[i]);
+    prodRecomendados.push_back(R[i].idProduto);
 }
 
 free(L);

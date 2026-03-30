@@ -5,12 +5,10 @@
 #include "dados_vendas.hpp"
 using namespace std;
 
-vector<vector<int>> criarMatrizDensa(const Dados& dados);
+vector<vector<int>> criarMatrizDensa(const vector<string>& codClientes, const vector<string>& nomeProdutos, const vector<vector<int>>& comprasPorCliente);
 vector<vector<int>> multiplicarMatrizes(const vector<vector<int>>& A);
 vector<vector<int>> multiplicarEficiente(const vector<vector<int>>& A);
-vector<vector<double>> calcularSimilaridade(const Dados& dados, const vector<vector<int>>& I);
-//vector<vector<double>> calcularSimEfi(const Dados& dados, const vector<vector<int>>& C); 
-double obterSimilaridade(const Dados& dados, const vector<vector<double>>& S, int i, int j);
-//double obterSimEfi(const Dados& dados, const vector<vector<double>>& SE, int i, int j);
-
+vector<vector<double>> calcularSimilaridade(const vector<string>& codClientes ,const vector<vector<int>>& comprasPorCliente , const vector<vector<int>>& I);
+double similaridadeEficiente(const vector<string>& codClientes, const vector<string>& nomeProdutos, const vector<vector<int>>& comprasPorCliente, int id1, int id2);
+double similaridadeComum(const vector<string>& codClientes, const vector<string>& nomeProdutos, const vector<vector<int>>& comprasPorCliente, int id1, int id2);
 #endif
