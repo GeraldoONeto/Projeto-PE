@@ -65,7 +65,7 @@ def main():
             cod = input("Digite o código do cliente: ")
             if dados.cod_clientes.count(cod) == 0:
                 print("Cliente não encontraodo.")
-                break
+                continue
             
             id = dados.map_clientes[cod]
             print("Produtos comprados: ")
@@ -84,18 +84,22 @@ def main():
 
             if dados.cod_clientes.count(cod1) == 0 or dados.cod_clientes.count(cod2) == 0:
                 print("Um ou ambos clientes não existem")
-                break
+                continue
 
             id1 = dados.map_clientes[cod1]
             id2 = dados.map_clientes[cod2]
 
             if algoritmo == 1:
-                sim = recomendador.similaridade_eficiente(dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, id1, id2)
-            
+                inicio = process_time()
+                sim = recomendador.similaridade_comum(dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, id1, id2)
+                fim = process_time()
             else:
+                inicio = process_time()
                 sim = recomendador.similaridade_eficiente(dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, id1, id2)
+                fim = process_time()
 
-            print(f"Similaridade (Jaccard) do cliente {cod1} em relação ao ao cliente {cod2}: {sim}")
+            print(f"\nSimilaridade (Jaccard) do cliente {cod1} em relação ao ao cliente {cod2}: {sim}")
+            print(f"Em {fim-inicio} segundos.")
 
         elif opcao == 3:
             cod1 = input("Digite o codigo do primeiro cliente: ")
@@ -105,28 +109,25 @@ def main():
 
             if dados.cod_clientes.count(cod1) == 0 or dados.cod_clientes.count(cod2) == 0 or dados.cod_clientes.count(cod3) == 0:
                     print("Um ou mais clientes não existem")
-                    break
+                    continue
                     
             id1 = dados.map_clientes[cod1]
             id2 = dados.map_clientes[cod2]
             id3 = dados.map_clientes[cod3]
 
-            if s_eficiente == 0:
-                s_eficiente = recomendador.recomendador.obter_similaridade_eficiente(dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente)
+            prod1 = recomendador.recomendacao(id1, dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, k)
+            prod2 = recomendador.recomendacao(id2, dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, k)
+            prod3 = recomendador.recomendacao(id3, dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, k)
 
-            prod1 = recomendador.recomendacao(id1, dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, s_eficiente, k)
-            prod2 = recomendador.recomendacao(id2, dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, s_eficiente, k)
-            prod3 = recomendador.recomendacao(id3, dados.cod_clientes, dados.nome_produtos, dados.compras_por_cliente, s_eficiente, k)
-
-            print("Primeiro Cliente: ")
+            print("\nPrimeiro Cliente: ")
             for produto in prod1:
                 print(dados.nome_produtos[produto])
             
-            print("Segundo Cliente: ")
+            print("\nSegundo Cliente: ")
             for produto in prod2:
                 print(dados.nome_produtos[produto])
 
-            print("Terceiro Cliente: ")
+            print("\nTerceiro Cliente: ")
             for produto in prod3:
                 print(dados.nome_produtos[produto])
 
@@ -134,7 +135,7 @@ def main():
             print("Comparação de algoritmos")
             print(f"Clientes: {len(dados.cod_clientes)} | Produtos: {len(dados.nome_produtos)}")
 
-            print("Algoritmo normal: ")
+            print("\nAlgoritmo normal: ")
 
             inicio1 = process_time()
 
@@ -146,7 +147,7 @@ def main():
 
             print(f"{tempo1:.4f} segundos")
             #-----------------------------------------------------------
-            print("Algoritmo otimizado: ")
+            print("\nAlgoritmo otimizado: ")
 
             inicio2 = process_time()
 

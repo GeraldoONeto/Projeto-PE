@@ -82,13 +82,8 @@ double similaridadeEficiente(
     const vector<vector<int>>& comprasPorCliente,
     int id1, int id2) {
 
-    vector<vector<int>> C;
-    {
-        vector<vector<int>> A = criarMatrizDensa(codClientes, nomeProdutos, comprasPorCliente);
-        C = multiplicarEficiente(A);
-    }
-    
-    
+    vector<vector<int>> A = criarMatrizDensa(codClientes, nomeProdutos, comprasPorCliente);
+    vector<vector<int>> C = multiplicarEficiente(A);
     vector<vector<double>> S_eficiente = calcularSimilaridade(codClientes, comprasPorCliente, C);
                 
  
@@ -100,12 +95,9 @@ double similaridadeComum(
     const vector<string>& nomeProdutos, 
     const vector<vector<int>>& comprasPorCliente,
     int id1, int id2) {
-
-    vector<vector<int>> I;    
-    {
-        vector<vector<int>> A = criarMatrizDensa(codClientes, nomeProdutos, comprasPorCliente);
-        I = multiplicarMatrizes(A);
-    }
+  
+    vector<vector<int>> A = criarMatrizDensa(codClientes, nomeProdutos, comprasPorCliente);
+    vector<vector<int>> I = multiplicarMatrizes(A);
     vector<vector<double>> S_comum = calcularSimilaridade(codClientes, comprasPorCliente, I);
                 
     return S_comum[id1][id2];
